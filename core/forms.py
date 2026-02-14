@@ -17,9 +17,9 @@ class ProdutoForm(forms.ModelForm):
 
     def clean_nome_produto(self):
         nome = self.cleaned_data.get('nome_produto')
-        # Regex: Permite letras, números, espaços e hífen. Bloqueia outros caracteres especiais.
-        if not re.match(r'^[A-Za-z0-9\s\-]+$', nome):
-            raise forms.ValidationError("O nome deve conter apenas letras, números e espaços (sem caracteres especiais).")
+        # Regex: Permite apenas letras (incluindo acentuadas), espaços e hífen.
+        if not re.match(r'^[A-Za-zÀ-ÿ\s\-]+$', nome):
+            raise forms.ValidationError("O nome deve conter apenas letras e espaços (não aceita números ou símbolos).")
         return nome
 
     def clean_valor(self):
